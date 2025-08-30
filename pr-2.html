@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robotic Profile Loader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #04070c;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #00ffc3;
+    }
+
+    .terminal {
+      background: linear-gradient(180deg, #0a0f14 0%, #020509 100%);
+      border: 2px solid #00ffc3;
+      box-shadow: 0 0 15px #00ffc3aa, 0 0 40px #00ffc366;
+      border-radius: 12px;
+      padding: 30px;
+      width: 90%;
+      max-width: 700px;
+      position: relative;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .terminal:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 255, 195, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .typing {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 1em;
+      background-color: #00ffc3;
+      animation: blink 0.8s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div id="typingText" class="typing"></div><span class="cursor"></span>
+  </div>
+
+  <audio id="typeSound" src="mixkit-electronic-typing-1397.wav" preload="auto"></audio>
+
+  <script>
+    const profileLines = [
+      "Initializing profile load...\n",
+      "User ID: 0xA1F3-Z09C",
+      "Name: Arindam Roy",
+      "Designation: Senior Web Engineer",
+      "Status: ACTIVE",
+      "Access Level: ADMINISTRATOR",
+      "\n>> Establishing secure terminal link...",
+      ">> Authenticating...",
+      ">> Access granted.\n",
+      ">> Welcome to NeoCommand Interface v7.2",
+      ">> System integrity: NOMINAL"
+    ];
+
+    const typingSpeed = 40;
+    const typingContainer = document.getElementById("typingText");
+    const typeSound = document.getElementById("typeSound");
+
+    let currentLine = 0;
+    let currentChar = 0;
+
+    function typeLine() {
+      if (currentLine < profileLines.length) {
+        const line = profileLines[currentLine];
+        if (currentChar < line.length) {
+          const char = line.charAt(currentChar);
+          typingContainer.textContent += char;
+          currentChar++;
+
+          if (char !== " " && char !== "\n") {
+            typeSound.currentTime = 0;
+            typeSound.play();
+          }
+
+          setTimeout(typeLine, typingSpeed);
+        } else {
+          typingContainer.textContent += "\n";
+          currentLine++;
+          currentChar = 0;
+          setTimeout(typeLine, typingSpeed);
+        }
+      }
+    }
+
+    window.onload = typeLine;
+  </script>
+</body>
+</html>

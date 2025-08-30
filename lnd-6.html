@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Futuristic User Grid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #000;
+      color: #0ff;
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    /* Neon grid background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(0deg, rgba(0,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.07) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .user-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 40px 20px;
+      max-width: 1300px;
+    }
+
+    .user-profile-card {
+      background: rgba(0, 255, 195, 0.08);
+      border: 1px solid #00ffc3;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 255, 195, 0.2), inset 0 0 8px rgba(0, 255, 195, 0.1);
+      padding: 15px;
+      width: 180px;
+      color: #00ffc3;
+      font-family: 'Share Tech Mono', monospace;
+      text-align: center;
+      transition: all 0.4s ease;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: slideUp 0.6s ease forwards;
+    }
+
+    .user-profile-card img {
+      width: 100px;
+      height: 100px;
+      border: 2px solid #00ffc3;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .user-profile-card .info h4 {
+      margin: 10px 0 5px;
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .user-profile-card .info p {
+      font-size: 0.85rem;
+      margin: 3px 0;
+    }
+
+    .user-profile-card:hover {
+      box-shadow: 0 0 20px #00ffc3, 0 0 40px #00ffc366;
+      transform: scale(1.05);
+      background-color: rgba(0, 255, 195, 0.12);
+    }
+
+    @keyframes slideUp {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Staggered animation delays */
+    .user-profile-card:nth-child(1) { animation-delay: 0.1s; }
+    .user-profile-card:nth-child(2) { animation-delay: 0.2s; }
+    .user-profile-card:nth-child(3) { animation-delay: 0.3s; }
+    .user-profile-card:nth-child(4) { animation-delay: 0.4s; }
+    .user-profile-card:nth-child(5) { animation-delay: 0.5s; }
+    .user-profile-card:nth-child(6) { animation-delay: 0.6s; }
+    .user-profile-card:nth-child(7) { animation-delay: 0.7s; }
+    .user-profile-card:nth-child(8) { animation-delay: 0.8s; }
+    .user-profile-card:nth-child(9) { animation-delay: 0.9s; }
+    .user-profile-card:nth-child(10) { animation-delay: 1.0s; }
+    .user-profile-card:nth-child(11) { animation-delay: 1.1s; }
+    .user-profile-card:nth-child(12) { animation-delay: 1.2s; }
+    .user-profile-card:nth-child(13) { animation-delay: 1.3s; }
+    .user-profile-card:nth-child(14) { animation-delay: 1.4s; }
+    .user-profile-card:nth-child(15) { animation-delay: 1.5s; }
+  </style>
+</head>
+<body>
+
+  <div class="user-grid">
+    <!-- Repeat 15 cards with different avatars -->
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=1" alt="User">
+      <div class="info">
+        <h4>Commander Arin</h4>
+        <p>ID: NC-2049</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=2" alt="User">
+      <div class="info">
+        <h4>Captain Zane</h4>
+        <p>ID: NC-2050</p>
+        <p>Status: Deployed</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=3" alt="User">
+      <div class="info">
+        <h4>Lt. Nova</h4>
+        <p>ID: NC-2051</p>
+        <p>Status: Standby</p>
+      </div>
+    </div>
+    <!-- Add more profiles -->
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=4" alt="User">
+      <div class="info">
+        <h4>Agent Vex</h4>
+        <p>ID: NC-2052</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=5" alt="User">
+      <div class="info">
+        <h4>Lt. Nyra</h4>
+        <p>ID: NC-2053</p>
+        <p>Status: On Leave</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=6" alt="User">
+      <div class="info">
+        <h4>Major Hex</h4>
+        <p>ID: NC-2054</p>
+        <p>Status: Deployed</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=7" alt="User">
+      <div class="info">
+        <h4>Cmdr. Mira</h4>
+        <p>ID: NC-2055</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=8" alt="User">
+      <div class="info">
+        <h4>Sgt. Vorn</h4>
+        <p>ID: NC-2056</p>
+        <p>Status: Training</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=9" alt="User">
+      <div class="info">
+        <h4>Agent Kira</h4>
+        <p>ID: NC-2057</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=10" alt="User">
+      <div class="info">
+        <h4>Technician Sol</h4>
+        <p>ID: NC-2058</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=11" alt="User">
+      <div class="info">
+        <h4>Ensign Tao</h4>
+        <p>ID: NC-2059</p>
+        <p>Status: Standby</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=12" alt="User">
+      <div class="info">
+        <h4>Lt. Zara</h4>
+        <p>ID: NC-2060</p>
+        <p>Status: Deployed</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=13" alt="User">
+      <div class="info">
+        <h4>Field Agent Lux</h4>
+        <p>ID: NC-2061</p>
+        <p>Status: Infiltrating</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=14" alt="User">
+      <div class="info">
+        <h4>Private Dex</h4>
+        <p>ID: NC-2062</p>
+        <p>Status: On Base</p>
+      </div>
+    </div>
+    <div class="user-profile-card">
+      <img src="https://i.pravatar.cc/150?img=15" alt="User">
+      <div class="info">
+        <h4>Specialist Ray</h4>
+        <p>ID: NC-2063</p>
+        <p>Status: Active</p>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

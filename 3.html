@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Stylish Buttons</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modern-button {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.4s;
+            border-radius: 10px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+
+        /* 1. Glassmorphism Button */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        /* 2. Neumorphism Soft Button */
+        .neumorphic-btn {
+            background: #1e1e1e;
+            box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.5), -6px -6px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .neumorphic-btn:hover {
+            box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        /* 3. Gradient Glow Button */
+        .gradient-glow-btn {
+            background: linear-gradient(45deg, #ff4d4d, #ff8000, #ffd700);
+            box-shadow: 0 0 10px #ff4d4d;
+            transition: 0.3s ease-in-out;
+        }
+
+        .gradient-glow-btn:hover {
+            box-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff8000;
+            transform: scale(1.1);
+        }
+
+        /* 4. Cyberpunk Neon Button */
+        .cyberpunk-btn {
+            background: linear-gradient(90deg, #ff007f, #ff4500);
+            box-shadow: 0 0 10px #ff007f;
+            position: relative;
+        }
+
+        .cyberpunk-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 300%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: 0.6s ease-in-out;
+        }
+
+        .cyberpunk-btn:hover::before {
+            width: 150%;
+            height: 400%;
+        }
+
+        /* 5. Floating Hover Button */
+        .floating-btn {
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+            color: white;
+            transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        }
+
+        .floating-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 154, 158, 0.5);
+        }
+
+        /* 6. Futuristic Wireframe Button */
+        .wireframe-btn {
+            background: transparent;
+            border: 2px solid #ffcc00;
+            color: #ffcc00;
+            box-shadow: 0 0 5px #ffcc00;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .wireframe-btn:hover {
+            background: #ffcc00;
+            color: #121212;
+            box-shadow: 0 0 15px #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <button class="modern-button glass-btn">Glassmorphism</button>
+        <button class="modern-button neumorphic-btn">Neumorphism</button>
+        <button class="modern-button gradient-glow-btn">Gradient Glow</button>
+        <button class="modern-button cyberpunk-btn">Cyberpunk</button>
+        <button class="modern-button floating-btn">Floating Hover</button>
+        <button class="modern-button wireframe-btn">Wireframe</button>
+    </div>
+
+</body>
+</html>

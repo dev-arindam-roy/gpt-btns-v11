@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NeoCore Landing Interface</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      font-family: 'Share Tech Mono', monospace;
+      color: #00ffc3;
+    }
+
+    /* Neon Grid Background */
+    .neon-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #001014 30%, #000000 80%);
+      z-index: 0;
+    }
+    .neon-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(0deg, transparent 95%, #00ffc311 96%),
+        linear-gradient(90deg, transparent 95%, #00ffc311 96%);
+      background-size: 50px 50px;
+      animation: gridMove 6s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes gridMove {
+      from {background-position: 0 0;}
+      to {background-position: 50px 50px;}
+    }
+
+    /* Center container */
+    .container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .loading-spinner {
+      border: 6px solid #00ffc322;
+      border-top: 6px solid #00ffc3;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .typing-text {
+      font-size: 1.2rem;
+      white-space: pre-wrap;
+      text-shadow: 0 0 8px #00ffc3;
+      min-height: 180px;
+    }
+
+    .latlong-anim {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1rem;
+      color: #00ffc3aa;
+      animation: flicker 2s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="neon-grid">
+    <div class="neon-lines"></div>
+  </div>
+
+  <div class="container">
+    <div class="loading-spinner"></div>
+    <div class="typing-text" id="typingText"></div>
+    <div class="latlong-anim" id="latlong"></div>
+  </div>
+
+  <audio id="typeSound" src="mixkit-electronic-typing-1397.wav" preload="auto"></audio>
+
+  <script>
+    const lines = [
+      "Initializing system...\n",
+      "Loading neural cores...\n",
+      "Authenticating user...\n",
+      "Access Level: ALPHA\n",
+      "Establishing satellite uplink...\n",
+      "Terminal Ready.\n\n",
+      "Welcome to NeoCore Command Interface."
+    ];
+
+    const latitudes = [
+      "Latitude: 37.7749° N, Longitude: 122.4194° W",
+      "Latitude: 51.5074° N, Longitude: 0.1278° W",
+      "Latitude: 35.6895° N, Longitude: 139.6917° E",
+      "Latitude: 28.6139° N, Longitude: 77.2090° E",
+    ];
+
+    const typingEl = document.getElementById('typingText');
+    const typeSound = document.getElementById('typeSound');
+    const latEl = document.getElementById('latlong');
+    let line = 0;
+    let char = 0;
+
+    function typeLine() {
+      if (line < lines.length) {
+        const current = lines[line];
+        if (char < current.length) {
+          typingEl.textContent += current[char];
+          if (current[char] !== ' ') {
+            typeSound.currentTime = 0;
+            typeSound.play();
+          }
+          char++;
+          setTimeout(typeLine, 40);
+        } else {
+          typingEl.textContent += "\n";
+          line++;
+          char = 0;
+          setTimeout(typeLine, 300);
+        }
+      }
+    }
+
+    function animateCoords() {
+      let index = 0;
+      setInterval(() => {
+        latEl.textContent = latitudes[index];
+        index = (index + 1) % latitudes.length;
+      }, 3000);
+    }
+
+    window.addEventListener("click", () => {
+      typeLine();
+      animateCoords();
+    }, { once: true });
+  </script>
+</body>
+</html>

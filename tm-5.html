@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Futuristic Timeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #0e0e1a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 4rem 1rem;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 0;
+      background: linear-gradient(180deg, #ff1cb1, #ff8cdd);
+      animation: growLine 5s linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes growLine {
+      0% { height: 0; }
+      100% { height: 100%; }
+    }
+
+    .timeline-item {
+      position: relative;
+      margin: 4rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-left {
+      width: 45%;
+      text-align: right;
+      padding-right: 2rem;
+      z-index: 2;
+    }
+
+    .timeline-left h6 {
+      color: #ff84d9;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-left p {
+      margin: 0;
+      color: #aaa;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 20px;
+      height: 20px;
+      background: #ff1cb1;
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 4px rgba(255, 28, 177, 0.2),
+        0 0 10px #ff1cb1,
+        0 0 25px #ff1cb1;
+      animation: pulse 2s infinite;
+      z-index: 3;
+    }
+
+    .timeline-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px #ff1cb1;
+    }
+
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.4); opacity: 0.7; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+
+    .timeline-right {
+      width: 45%;
+      padding-left: 2rem;
+      z-index: 2;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 0 20px rgba(255, 28, 177, 0.2);
+      backdrop-filter: blur(8px);
+      transition: all 0.4s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 0 30px rgba(255, 28, 177, 0.4);
+      transform: translateY(-4px);
+    }
+
+    .timeline-right h5 {
+      color: #ff1cb1;
+    }
+
+    .timeline-right img,
+    .timeline-right iframe {
+      width: 100%;
+      border-radius: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .timeline-left,
+      .timeline-right {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+      }
+
+      .timeline-dot {
+        left: 20px;
+        transform: translate(0, 0);
+      }
+    }
+  </style>
+</head>
+<body>
+<audio id="beep" src="mixkit-censorship-beep-1082.wav" preload="auto"></audio>
+
+  <div class="text-center mb-5">
+    <button id="startTimeline" class="btn btn-primary btn-lg">Start Timeline</button>
+  </div>
+<div class="timeline" id="timelineContainer">
+
+  <div class="timeline-item" data-time="1000">
+    <div class="timeline-left">
+      <h6>Jan 01, 2025</h6>
+      <p>New York, USA</p>
+    </div>
+    <div class="timeline-dot" style="top: 0;"></div>
+    <div class="timeline-right">
+      <div class="card">
+        <h5>Launch Event</h5>
+        <p>Official launch of the futuristic platform with attendees from all over the world.</p>
+        <img src="https://via.placeholder.com/600x300?text=Launch+Event" alt="Launch Event">
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-item" data-time="3000">
+    <div class="timeline-left">
+      <h6>Mar 15, 2025</h6>
+      <p>London, UK</p>
+    </div>
+    <div class="timeline-dot" style="top: 180px;"></div>
+    <div class="timeline-right">
+      <div class="card">
+        <h5>AI Conference Keynote</h5>
+        <p>Presented our roadmap for next-gen AI at the London Tech Expo.</p>
+        <iframe height="300" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="timeline-item" data-time="5000">
+    <div class="timeline-left">
+      <h6>June 10, 2025</h6>
+      <p>Tokyo, Japan</p>
+    </div>
+    <div class="timeline-dot" style="top: 360px;"></div>
+    <div class="timeline-right">
+      <div class="card">
+        <h5>Global Hackathon</h5>
+        <p>Collaboration, creativity, and futuristic coding challenges with AI.</p>
+        <img src="https://via.placeholder.com/600x300?text=Hackathon" alt="Hackathon">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- <script>
+  const items = document.querySelectorAll('.timeline-item');
+  const beep = document.getElementById('beep');
+
+  items.forEach((item, index) => {
+    const delay = parseInt(item.getAttribute('data-time'));
+    setTimeout(() => {
+      item.classList.add('visible');
+      beep.currentTime = 0;
+      beep.play();
+    }, delay);
+  });
+</script> -->
+
+<script>
+    const items = document.querySelectorAll('.timeline-item');
+    const beep = document.getElementById('beep');
+    const startButton = document.getElementById('startTimeline');
+    const timelineContainer = document.getElementById('timelineContainer');
+
+    // Hide timeline initially
+    timelineContainer.style.display = 'none';
+
+    startButton.addEventListener('click', () => {
+      timelineContainer.style.display = 'block';
+      startButton.style.display = 'none';
+
+      items.forEach((item, index) => {
+        const delay = parseInt(item.getAttribute('data-time'));
+        setTimeout(() => {
+          item.classList.add('visible');
+          // Only play sound if allowed
+          beep.currentTime = 0;
+          beep.play().catch((err) => {
+            console.warn('Sound play blocked:', err);
+          });
+        }, delay);
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Robotic Profile Loader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #0a0f14;
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 50px;
+      overflow: hidden;
+    }
+
+    .terminal {
+      background: radial-gradient(ellipse at center, #0f1c2f 0%, #05080f 100%);
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 20px #00ffcc88;
+      position: relative;
+    }
+
+    .terminal:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 204, 0.03) 3px
+      );
+      pointer-events: none;
+    }
+
+    .glow {
+      text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+    }
+
+    .typing {
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ffcc;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="terminal glow">
+    <div id="typingText" class="typing"></div><span class="cursor"></span>
+  </div>
+
+  <script>
+    const profileLines = [
+      "Loading user profile...\n",
+      "ID: 0xA1F3-Z09C",
+      "Name: Arindam Roy",
+      "Designation: Senior Web Engineer",
+      "Status: ACTIVE",
+      "Access Level: ADMINISTRATOR",
+      "\n>> Initiating system handshake...",
+      ">> Welcome to the Command Interface v4.7\n",
+      ">> Profile diagnostics: OK"
+    ];
+
+    const typingSpeed = 40; // ms per character
+    const typingContainer = document.getElementById("typingText");
+    let currentLine = 0;
+    let currentChar = 0;
+
+    function typeLine() {
+      if (currentLine < profileLines.length) {
+        const line = profileLines[currentLine];
+        if (currentChar < line.length) {
+          typingContainer.textContent += line.charAt(currentChar);
+          currentChar++;
+          setTimeout(typeLine, typingSpeed);
+        } else {
+          typingContainer.textContent += "\n";
+          currentLine++;
+          currentChar = 0;
+          setTimeout(typeLine, typingSpeed);
+        }
+      }
+    }
+
+    // Start typing on load
+    window.onload = typeLine;
+  </script>
+</body>
+</html>

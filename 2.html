@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Animated Buttons</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #101010;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .styled-button {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            border-radius: 8px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            transition: 0.4s ease-in-out;
+        }
+
+        /* 1. Liquid Glow Button */
+        .liquid-btn {
+            background: linear-gradient(45deg, #ff4d4d, #ff8000, #ffd700);
+            box-shadow: 0 0 15px #ff4d4d;
+            position: relative;
+        }
+
+        .liquid-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.4s ease-in-out;
+        }
+
+        .liquid-btn:hover::before {
+            left: 100%;
+        }
+
+        /* 2. Swipe Glow Button */
+        .swipe-btn {
+            background: linear-gradient(90deg, #ff007f, #ff4500);
+            box-shadow: 0 0 10px #ff007f;
+            position: relative;
+        }
+
+        .swipe-btn::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #ffffff;
+            bottom: 0;
+            left: -100%;
+            transition: 0.4s ease-in-out;
+        }
+
+        .swipe-btn:hover::after {
+            left: 0;
+        }
+
+        /* 3. Shiny Border Button */
+        .shiny-btn {
+            background: transparent;
+            border: 2px solid #ffcc00;
+            color: #ffcc00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shiny-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: 0.4s ease-in-out;
+        }
+
+        .shiny-btn:hover::before {
+            left: 100%;
+        }
+
+        /* 4. 3D Depth Button */
+        .depth-btn {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transform: perspective(1px) translateZ(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .depth-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 65, 108, 0.6);
+        }
+
+        /* 5. Blinking Neon Button */
+        .blink-btn {
+            background: linear-gradient(90deg, #ff7300, #ffea00);
+            box-shadow: 0 0 10px #ff7300;
+            animation: blinkGlow 1s infinite alternate;
+        }
+
+        @keyframes blinkGlow {
+            0% { box-shadow: 0 0 10px #ff7300; }
+            100% { box-shadow: 0 0 20px #ffea00; }
+        }
+
+        /* 6. Shooting Star Button */
+        .star-btn {
+            background: linear-gradient(90deg, #ff4d4d, #ff8000);
+            box-shadow: 0 0 15px #ff4d4d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .star-btn::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+            top: -100%;
+            left: 0;
+            transition: 0.5s ease-in-out;
+        }
+
+        .star-btn:hover::before {
+            top: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="button-container">
+        <button class="styled-button liquid-btn">Liquid Glow</button>
+        <button class="styled-button swipe-btn">Swipe Glow</button>
+        <button class="styled-button shiny-btn">Shiny Border</button>
+        <button class="styled-button depth-btn">3D Depth</button>
+        <button class="styled-button blink-btn">Blinking Neon</button>
+        <button class="styled-button star-btn">Shooting Star</button>
+    </div>
+
+</body>
+</html>

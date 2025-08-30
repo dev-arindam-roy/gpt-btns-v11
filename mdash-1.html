@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Command Center Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #000;
+      color: #0ff;
+      overflow-x: hidden;
+    }
+
+    /* Neon grid background */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(0deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      grid-gap: 20px;
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel {
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid #0ff;
+      box-shadow: 0 0 15px #00fff588, inset 0 0 8px #00fff544;
+      border-radius: 12px;
+      padding: 20px;
+      overflow: hidden;
+      animation: slideIn 1s ease forwards;
+    }
+
+    .panel h2 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .left-panel, .right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .main-panel {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .radar {
+      height: 200px;
+      background: radial-gradient(circle, rgba(0,255,255,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      position: relative;
+      animation: rotate 6s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .log-panel {
+      background: #001a1a;
+      height: 150px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      color: #0ff;
+      border: 1px solid #044;
+      padding: 10px;
+    }
+
+    .log-panel::-webkit-scrollbar {
+      width: 6px;
+    }
+    .log-panel::-webkit-scrollbar-thumb {
+      background: #0ff;
+      border-radius: 4px;
+    }
+
+    .log-line {
+      animation: logScroll 0.4s ease-in-out;
+    }
+
+    @keyframes logScroll {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Left Panel -->
+    <div class="left-panel">
+      <div class="panel">
+        <h2>Mission Stats</h2>
+        <p>Ops: 124</p>
+        <p>Active Units: 23</p>
+        <p>Airbases: 7</p>
+      </div>
+      <div class="panel">
+        <h2>Weather Status</h2>
+        <p>Clear Skies</p>
+        <p>Temp: 22°C</p>
+      </div>
+    </div>
+
+    <!-- Center Panel -->
+    <div class="main-panel">
+      <div class="panel radar">
+        <!-- Radar screen -->
+      </div>
+      <div class="panel log-panel" id="logPanel">
+        <h2>Command Logs</h2>
+        <div id="logs"></div>
+      </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="right-panel">
+      <div class="panel">
+        <h2>User Login</h2>
+        <p>Commander Arin</p>
+        <p>Status: Online</p>
+      </div>
+      <div class="panel">
+        <h2>Satellite Feed</h2>
+        <p>Link: Stable</p>
+        <p>Signal: 98%</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const logs = [
+      "[0501 UTC] Satellite link initiated...",
+      "[0502 UTC] Receiving telemetry data...",
+      "[0503 UTC] Recon drone deployed...",
+      "[0504 UTC] Incoming encrypted message...",
+      "[0505 UTC] Base defense system active."
+    ];
+
+    let logIndex = 0;
+    const logPanel = document.getElementById("logs");
+
+    function addLogLine() {
+      if (logIndex < logs.length) {
+        const line = document.createElement("p");
+        line.className = "log-line";
+        line.textContent = logs[logIndex++];
+        logPanel.appendChild(line);
+        logPanel.scrollTop = logPanel.scrollHeight;
+        setTimeout(addLogLine, 2000);
+      }
+    }
+
+    setTimeout(addLogLine, 1000);
+  </script>
+</body>
+</html>

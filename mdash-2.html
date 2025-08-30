@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Military Command Center Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(#000, #050a1f);
+      color: #0ff;
+      overflow: hidden;
+    }
+
+    .grid {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(0, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.07) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: 1;
+      animation: pulseGrid 3s infinite alternate;
+    }
+
+    @keyframes pulseGrid {
+      0% {
+        opacity: 0.1;
+      }
+      100% {
+        opacity: 0.25;
+      }
+    }
+
+    .container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      grid-template-areas:
+        "top top top"
+        "left center right"
+        "bottom bottom bottom";
+      grid-template-columns: 1fr 2fr 1fr;
+      grid-template-rows: auto 1fr auto;
+      padding: 20px;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .panel {
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      padding: 10px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+    }
+
+    .top {
+      grid-area: top;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .center {
+      grid-area: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .radar {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 2px solid #0ff;
+      position: relative;
+      animation: pulse 1s infinite;
+    }
+
+    .radar::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: rgba(0, 255, 255, 0.3);
+      transform-origin: center;
+      animation: sweep 2s linear infinite;
+    }
+
+    @keyframes sweep {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px #0ff;
+      }
+      100% {
+        box-shadow: 0 0 25px #0ff;
+      }
+    }
+
+    .left {
+      grid-area: left;
+    }
+
+    .right {
+      grid-area: right;
+    }
+
+    .bottom {
+      grid-area: bottom;
+      font-size: 14px;
+      background: rgba(0, 255, 255, 0.08);
+      height: 100px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .command-log {
+      position: absolute;
+      animation: scrollUp 15s linear infinite;
+    }
+
+    @keyframes scrollUp {
+      0% {
+        top: 100%;
+      }
+      100% {
+        top: -100%;
+      }
+    }
+
+    .mission-bar {
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 255, 255, 0.1);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker {
+      display: inline-block;
+      animation: tickerMove 10s linear infinite;
+    }
+
+    @keyframes tickerMove {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .button-panel button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background: transparent;
+      color: #0ff;
+      border: 1px solid #0ff;
+      box-shadow: 0 0 10px #0ff;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grid"></div>
+  <div class="container">
+    <div class="top panel mission-bar">
+      <div class="ticker">
+        [ALERT] SATELLITE LOCKED | UPLINK SECURED | DRONE FEED ONLINE | WEATHER SYSTEM NOMINAL | AIRSPACE CLEAR
+      </div>
+    </div>
+    <div class="left panel">
+      <h3>Operator Feed</h3>
+      <p>Operator #2491 - Online</p>
+      <p>Operator #2102 - Monitoring</p>
+      <p>Operator #2189 - Idle</p>
+      <br>
+      <div class="button-panel">
+        <button>Initiate Protocol</button>
+        <button>Open Comms</button>
+        <button>Launch Drone</button>
+      </div>
+    </div>
+    <div class="center">
+      <div class="radar"></div>
+    </div>
+    <div class="right panel">
+      <h3>Mission Details</h3>
+      <p>Current Ops: OPERATION SKYWATCH</p>
+      <p>Status: ACTIVE</p>
+      <p>Uplink: ESTABLISHED</p>
+      <p>Tracking: 4 Targets</p>
+    </div>
+    <div class="bottom panel">
+      <div class="command-log">
+        <p>> INITIATING SYSTEMS...</p>
+        <p>> LOADING SATELLITE FEED...</p>
+        <p>> UPLINK SECURED</p>
+        <p>> MISSION: SKYWATCH</p>
+        <p>> SURVEILLANCE ACTIVE</p>
+        <p>> ALL SYSTEMS STABLE</p>
+        <p>> STANDBY FOR COMMAND...</p>
+        <p>> ...</p>
+        <p>> ...</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

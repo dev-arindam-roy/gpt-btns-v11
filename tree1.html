@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Project Structure Builder with jsTree</title>
+
+  <!-- jsTree default theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #tree {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background-color: #f5f5f5;
+    }
+
+    textarea {
+      width: 100%;
+      height: 200px;
+      margin-top: 20px;
+      font-family: monospace;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    /* Folder icon override */
+    .jstree-icon.folder-icon {
+      background: url('https://cdn-icons-png.flaticon.com/512/715/715676.png') no-repeat center center !important;
+      background-size: 16px !important;
+    }
+
+    /* File icon override */
+    .jstree-icon.file-icon {
+      background: url('https://cdn-icons-png.flaticon.com/512/337/337946.png') no-repeat center center !important;
+      background-size: 16px !important;
+    }
+
+    /* Collapse/Expand icons as plus/minus */
+  .jstree-ocl {
+  background: none !important;
+  width: 12px;
+  height: 12px;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  display: inline-block;
+  color: #555;
+  margin-right: 2px;
+  vertical-align: middle;
+  padding-left: 1px;
+  font-style: normal;
+}
+
+.jstree-closed > .jstree-ocl::before {
+  content: "➕";
+}
+
+.jstree-open > .jstree-ocl::before {
+  content: "➖";
+}
+  </style>
+</head>
+<body>
+
+  <h2>📁 Project Structure Builder</h2>
+  <p>Right-click a node to add folders/files, rename, or delete.</p>
+
+  <div id="tree"></div>
+
+  <button onclick="exportASCII()">📤 Export ASCII</button>
+  <button onclick="downloadASCII()">💾 Download ASCII</button>
+  <button onclick="downloadJSON()">📥 Download JSON</button>
+
+  <textarea id="asciiOutput" readonly placeholder="ASCII structure will appear here..."></textarea>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
+
+  <script>
+    // Initialize jsTree
+    $('#tree').jstree({
+      core: {
+        check_callback: true,
+        data: [
+  {
+    "id": "root",
+    "text": "project",
+    "icon": "folder-icon",
+    "li_attr": {
+      "id": "root"
+    },
+    "a_attr": {
+      "href": "#",
+      "id": "root_anchor"
+    },
+    "state": {
+      "loaded": true,
+      "opened": true,
+      "selected": false,
+      "disabled": false
+    },
+    "data": {},
+    "children": [
+      {
+        "id": "j1_1",
+        "text": "New Folder",
+        "icon": "folder-icon",
+        "li_attr": {
+          "id": "j1_1"
+        },
+        "a_attr": {
+          "href": "#",
+          "id": "j1_1_anchor"
+        },
+        "state": {
+          "loaded": true,
+          "opened": true,
+          "selected": false,
+          "disabled": false
+        },
+        "data": {},
+        "children": [
+          {
+            "id": "j1_2",
+            "text": "New Folder",
+            "icon": "folder-icon",
+            "li_attr": {
+              "id": "j1_2"
+            },
+            "a_attr": {
+              "href": "#",
+              "id": "j1_2_anchor"
+            },
+            "state": {
+              "loaded": true,
+              "opened": true,
+              "selected": true,
+              "disabled": false
+            },
+            "data": {},
+            "children": [
+              {
+                "id": "j1_3",
+                "text": "www1.txt",
+                "icon": "file-icon",
+                "li_attr": {
+                  "id": "j1_3"
+                },
+                "a_attr": {
+                  "href": "#",
+                  "id": "j1_3_anchor"
+                },
+                "state": {
+                  "loaded": true,
+                  "opened": false,
+                  "selected": false,
+                  "disabled": false
+                },
+                "data": {},
+                "children": [],
+                "type": "file"
+              },
+              {
+                "id": "j1_4",
+                "text": "www2.txt",
+                "icon": "file-icon",
+                "li_attr": {
+                  "id": "j1_4"
+                },
+                "a_attr": {
+                  "href": "#",
+                  "id": "j1_4_anchor"
+                },
+                "state": {
+                  "loaded": true,
+                  "opened": false,
+                  "selected": false,
+                  "disabled": false
+                },
+                "data": {},
+                "children": [],
+                "type": "file"
+              }
+            ],
+            "type": "folder"
+          }
+        ],
+        "type": "folder"
+      }
+    ],
+    "type": "folder"
+  }
+]
+        // data: {
+        //   url: 'project-structure.json',
+        //   dataType: 'json'
+        // }
+      },
+      types: {
+        folder: {
+          icon: "folder-icon"
+        },
+        file: {
+          icon: "file-icon"
+        }
+      },
+      contextmenu: {
+        items: function ($node) {
+          return {
+            CreateFolder: {
+              label: "Add Folder",
+              action: function () {
+                const id = $('#tree').jstree().create_node($node, { text: "New Folder", type: "folder" });
+                $('#tree').jstree().edit(id);
+              }
+            },
+            CreateFile: {
+              label: "Add File",
+              action: function () {
+                const id = $('#tree').jstree().create_node($node, { text: "New File", type: "file" });
+                $('#tree').jstree().edit(id);
+              }
+            },
+            Rename: {
+              label: "Rename",
+              action: function () {
+                $('#tree').jstree().edit($node);
+              }
+            },
+            Delete: {
+              label: "Delete",
+              action: function () {
+                $('#tree').jstree().delete_node($node);
+              }
+            }
+          };
+        }
+      },
+      plugins: ["contextmenu", "types", "dnd", "unique"]
+    });
+
+    // ASCII builder
+    function buildAscii(nodes, prefix = "") {
+      let lines = "";
+      nodes.forEach((node, idx) => {
+        const isLast = idx === nodes.length - 1;
+        const pointer = isLast ? "└── " : "├── ";
+        lines += prefix + pointer + node.text + "\n";
+
+        const children = $('#tree').jstree().get_children_dom(node.id).toArray().map(el => {
+          return $('#tree').jstree().get_node(el.id);
+        });
+
+        const newPrefix = prefix + (isLast ? "    " : "│   ");
+        lines += buildAscii(children, newPrefix);
+      });
+      return lines;
+    }
+
+    function exportASCII() {
+      const root = $('#tree').jstree().get_node("root");
+      const children = $('#tree').jstree().get_children_dom("root").toArray().map(el => $('#tree').jstree().get_node(el.id));
+      const ascii = root.text + "\n" + buildAscii(children);
+      document.getElementById("asciiOutput").value = ascii;
+    }
+
+    function downloadASCII() {
+      exportASCII();
+      const text = document.getElementById("asciiOutput").value;
+      const blob = new Blob([text], { type: 'text/plain' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "project-structure.txt";
+      link.click();
+    }
+
+    function downloadJSON() {
+    // Get full tree starting from root
+    const treeData = $('#tree').jstree().get_json('#', { flat: false }); // hierarchical, not flat
+    const blob = new Blob([JSON.stringify(treeData, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Create and click download link
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "project-structure.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+  </script>
+
+</body>
+</html>
